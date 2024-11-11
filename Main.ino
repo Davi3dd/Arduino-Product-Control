@@ -1,4 +1,4 @@
-#include <LiquidCrystal.h>  // Biblioteca para LCD
+#include <LiquidCrystal.h> 
 
 
 const int pinoVenda = 7;       
