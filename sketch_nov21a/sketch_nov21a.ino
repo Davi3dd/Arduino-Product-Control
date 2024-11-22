@@ -13,7 +13,7 @@ const int limiteEstoqueBaixo = 5;
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 void setup() {
- 
+  Serial.begin(9600);
   lcd.begin(16, 2); 
   lcd.print("Controle de Estoque");
 
@@ -33,15 +33,18 @@ void loop() {
   if (venda && estoque > 0) {
     estoque--; 
     tone(pinoBuzzer, 1000, 200);
-    delay(500); 
+    delay(500);
+    Serial.print("Venda realizada. Estoque atual: ");
+    Serial.println(estoque); 
   }
 
   if (reposicao) {
     estoque++; 
     tone(pinoBuzzer, 500, 200);
     delay(500);
+    Serial.print("Reposição realizada. Estoque atual: ");
+    Serial.println(estoque);
   }
-
  
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -51,7 +54,8 @@ void loop() {
   if (estoque <= limiteEstoqueBaixo) {
     lcd.setCursor(0, 1);
     lcd.print("Estoque Baixo!");
-    tone(pinoBuzzer, 2000, 1000); 
+    tone(pinoBuzzer, 2000, 1000);
+    Serial.println("ALERTA: Estoque baixo!"); 
   } else {
     noTone(pinoBuzzer);
   }
